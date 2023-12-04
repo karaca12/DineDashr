@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.karacamehmet.dinedashr.data.entity.Yemekler;
 import com.karacamehmet.dinedashr.databinding.YemekCardDesignBinding;
 import com.karacamehmet.dinedashr.ui.fragment.HomeFragmentDirections;
-import com.karacamehmet.dinedashr.ui.viewmodel.HomeViewModel;
+
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -24,15 +24,13 @@ import java.util.Locale;
 public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesignHolder> {
     private List<Yemekler> yemekler;
     private Context mContext;
-    private HomeViewModel viewModel;
     private List<Yemekler> filteredYemekler;
 
 
-    public YemekRVAdapter(List<Yemekler> yemekler, Context mContext, HomeViewModel viewModel) {
+    public YemekRVAdapter(List<Yemekler> yemekler, Context mContext) {
         this.yemekler = yemekler;
         this.filteredYemekler = new ArrayList<>(yemekler);
         this.mContext = mContext;
-        this.viewModel = viewModel;
     }
 
     public class CardDesignHolder extends RecyclerView.ViewHolder {
@@ -87,10 +85,10 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
     }
 
     public void sortByPriceHighToLow() {
-        Collections.sort(filteredYemekler, (yemek1, yemek2) -> Integer.compare(yemek2.getYemek_fiyat(), yemek1.getYemek_fiyat()));
+        Collections.sort(filteredYemekler, (yemek1, yemek2) ->
+                Integer.compare(yemek2.getYemek_fiyat(), yemek1.getYemek_fiyat()));
         notifyDataSetChanged();
     }
-
 
     public void filterSearch(String query) {
         filteredYemekler.clear();

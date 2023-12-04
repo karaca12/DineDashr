@@ -27,8 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private HomeViewModel viewModel;
-    private List<String> filters = Arrays.asList("İsim: A-Z", "İsim: Z-A",
-            "Fiyat: Düşükten Yükseğe", "Fiyat: Yüksekten Düşüğe");
+    private final List<String> filters = Arrays.asList("İsim: A-Z", "İsim: Z-A",
+            "Fiyat: Artan", "Fiyat: Azalan");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
 
         viewModel.yemeklerListesi.observe(getViewLifecycleOwner(), yemeklers -> {
 
-            YemekRVAdapter adapter = new YemekRVAdapter(yemeklers, requireContext(), viewModel);
+            YemekRVAdapter adapter = new YemekRVAdapter(yemeklers, requireContext());
             binding.recyclerViewYemekler.setAdapter(adapter);
             binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -65,7 +65,6 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-
             binding.spinnerFiltre.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -77,10 +76,10 @@ public class HomeFragment extends Fragment {
                         case "İsim: Z-A":
                             adapter.sortByNameZA();
                             break;
-                        case "Fiyat: Düşükten Yükseğe":
+                        case "Fiyat: Artan":
                             adapter.sortByPriceLowToHigh();
                             break;
-                        case "Fiyat: Yüksekten Düşüğe":
+                        case "Fiyat: Azalan":
                             adapter.sortByPriceHighToLow();
                             break;
                         default:

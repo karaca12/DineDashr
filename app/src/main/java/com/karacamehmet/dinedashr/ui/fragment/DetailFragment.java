@@ -11,7 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.karacamehmet.dinedashr.R;
+import com.google.android.material.snackbar.Snackbar;
+
 import com.karacamehmet.dinedashr.data.entity.Yemekler;
 import com.karacamehmet.dinedashr.databinding.FragmentDetailBinding;
 import com.karacamehmet.dinedashr.ui.viewmodel.DetailViewModel;
@@ -45,6 +46,9 @@ public class DetailFragment extends Fragment {
                         gelenYemek.getYemek_fiyat(),
                         Integer.parseInt(binding.textViewYemekAdet.getText().toString()),
                         "mehmet_karaca");
+                Snackbar.make(v, "Sepete Eklendi", Snackbar.LENGTH_SHORT).show();
+                binding.textViewYemekAdet.setText("0");
+
             }
 
         });
