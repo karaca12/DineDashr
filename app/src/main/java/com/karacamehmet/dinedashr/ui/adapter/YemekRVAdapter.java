@@ -1,7 +1,6 @@
 package com.karacamehmet.dinedashr.ui.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,7 +14,10 @@ import com.karacamehmet.dinedashr.databinding.YemekCardDesignBinding;
 import com.karacamehmet.dinedashr.ui.fragment.HomeFragmentDirections;
 import com.karacamehmet.dinedashr.ui.viewmodel.HomeViewModel;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,10 +25,12 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
     private List<Yemekler> yemekler;
     private Context mContext;
     private HomeViewModel viewModel;
+    private List<Yemekler> filteredYemekler;
 
 
     public YemekRVAdapter(List<Yemekler> yemekler, Context mContext, HomeViewModel viewModel) {
         this.yemekler = yemekler;
+        this.filteredYemekler = new ArrayList<>(yemekler);
         this.mContext = mContext;
         this.viewModel = viewModel;
     }
@@ -40,7 +44,6 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
         }
     }
 
-
     @NonNull
     @Override
     public CardDesignHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,7 +54,7 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
 
     @Override
     public void onBindViewHolder(@NonNull CardDesignHolder holder, int position) {
-        Yemekler yemek = yemekler.get(position);
+        Yemekler yemek = filteredYemekler.get(position);
         YemekCardDesignBinding designBinding = holder.designBinding;
         String URL = "http://kasimadalan.pe.hu/yemekler/resimler/" + yemek.getYemek_resim_adi();
 
@@ -68,9 +71,51 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
 
     }
 
+    public void sortByNameAZ() {
+        Collections.sort(filteredYemekler, Comparator.comparing(Yemekler::getYemek_adi));
+        notifyDataSetChanged();
+    }
+
+    public void sortByNameZA() {
+        Collections.sort(filteredYemekler, (yemek1, yemek2) -> yemek2.getYemek_adi().compareTo(yemek1.getYemek_adi()));
+        notifyDataSetChanged();
+    }
+
+    public void sortByPriceLowToHigh() {
+        Collections.sort(filteredYemekler, Comparator.comparingInt(Yemekler::getYemek_fiyat));
+        notifyDataSetChanged();
+    }
+
+    public void sortByPriceHighToLow() {
+        Collections.sort(filteredYemekler, (yemek1, yemek2) -> Integer.compare(yemek2.getYemek_fiyat(), yemek1.getYemek_fiyat()));
+        notifyDataSetChanged();
+    }
+
+
+    public void filterSearch(String query) {
+        filteredYemekler.clear();
+        if (query.trim().isEmpty()) {
+            filteredYemekler.addAll(yemekler);
+        } else {
+            query = query.toLowerCase(new Locale("tr", "TR"));
+            for (Yemekler yemek : yemekler) {
+                if (normalizeString(yemek.getYemek_adi()).contains(normalizeString(query))) {
+                    filteredYemekler.add(yemek);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    private String normalizeString(String input) {
+        return Normalizer.normalize(input, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .toLowerCase(new Locale("tr", "TR"));
+    }
+
     @Override
     public int getItemCount() {
-        return yemekler.size();
+        return filteredYemekler.size();
     }
 
 }

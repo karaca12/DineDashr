@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
         android:id="@+id/cardIcecek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -87,7 +87,7 @@
         android:id="@+id/cardTatlı"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toStartOf="@+id/cardIcecek"
         app:layout_constraintHorizontal_bias="0.5"
@@ -126,7 +126,7 @@
         android:id="@+id/cardYemek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toStartOf="@+id/cardTatlı"
         app:layout_constraintHorizontal_bias="0.5"
@@ -165,7 +165,7 @@
         android:id="@+id/cardTumu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toStartOf="@+id/cardYemek"
         app:layout_constraintHorizontal_bias="0.5"
@@ -229,17 +229,17 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/favori_bos"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardTatlı" />
 
-    <TextView
-        android:id="@+id/textView6"
+    <Spinner
+        android:id="@+id/spinnerFiltre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="32dp"
-        android:text="hayalilisteleme"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:dropDownWidth="wrap_content"
+        android:gravity="end"
+        app:layout_constraintEnd_toStartOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/cardIcecek" />
 
 
