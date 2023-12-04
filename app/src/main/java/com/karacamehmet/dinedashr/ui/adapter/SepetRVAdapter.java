@@ -72,6 +72,10 @@ public class SepetRVAdapter extends RecyclerView.Adapter<SepetRVAdapter.CardDesi
             Snackbar.make(v, "Silinsin mi?", Snackbar.LENGTH_SHORT)
                     .setAction("EVET", v1 -> {
                         viewModel.sepettenYemekSil(sepetYemek.getSepet_yemek_id(), "mehmet_karaca");
+                        sepetYemekler.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, sepetYemekler.size());
+                        emptyStateListener.onEmptyStateChanged(sepetYemekler.isEmpty());
                     })
                     .show();
         });
