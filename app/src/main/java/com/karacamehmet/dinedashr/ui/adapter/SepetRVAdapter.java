@@ -21,11 +21,17 @@ public class SepetRVAdapter extends RecyclerView.Adapter<SepetRVAdapter.CardDesi
     private List<SepetYemekler> sepetYemekler;
     private Context mContext;
     private BasketViewModel viewModel;
+    private EmptyStateListener emptyStateListener;
 
-    public SepetRVAdapter(List<SepetYemekler> sepetYemekler, Context mContext, BasketViewModel viewModel) {
+    public interface EmptyStateListener {
+        void onEmptyStateChanged(boolean isEmpty);
+    }
+
+    public SepetRVAdapter(List<SepetYemekler> sepetYemekler, Context mContext, BasketViewModel viewModel, EmptyStateListener emptyStateListener) {
         this.sepetYemekler = sepetYemekler;
         this.mContext = mContext;
         this.viewModel = viewModel;
+        this.emptyStateListener = emptyStateListener;
     }
 
     public class CardDesignHolder extends RecyclerView.ViewHolder {
@@ -48,6 +54,7 @@ public class SepetRVAdapter extends RecyclerView.Adapter<SepetRVAdapter.CardDesi
 
     @Override
     public void onBindViewHolder(@NonNull CardDesignHolder holder, int position) {
+        emptyStateListener.onEmptyStateChanged(sepetYemekler.isEmpty());
         SepetYemekler sepetYemek = sepetYemekler.get(position);
         SepetCardDesignBinding designBinding = holder.designBinding;
         String URL = "http://kasimadalan.pe.hu/yemekler/resimler/" + sepetYemek.getYemek_resim_adi();
@@ -68,6 +75,7 @@ public class SepetRVAdapter extends RecyclerView.Adapter<SepetRVAdapter.CardDesi
                     })
                     .show();
         });
+
 
     }
 

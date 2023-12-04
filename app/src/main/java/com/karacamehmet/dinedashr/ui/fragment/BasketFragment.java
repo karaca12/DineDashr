@@ -19,7 +19,7 @@ import com.karacamehmet.dinedashr.ui.viewmodel.BasketViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class BasketFragment extends Fragment {
+public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStateListener {
     private FragmentBasketBinding binding;
     private BasketViewModel viewModel;
 
@@ -30,14 +30,11 @@ public class BasketFragment extends Fragment {
         binding = FragmentBasketBinding.inflate(inflater, container, false);
 
         binding.recyclerViewSepetYemekler.setLayoutManager(new LinearLayoutManager(requireContext()));
-        viewModel.sepettekiYemekleriYukle("mehmet_karaca");
 
         viewModel.sepetYemeklerListesi.observe(getViewLifecycleOwner(), sepetYemeklers -> {
-            SepetRVAdapter adapter = new SepetRVAdapter(sepetYemeklers, requireContext(), viewModel);
+            SepetRVAdapter adapter = new SepetRVAdapter(sepetYemeklers, requireContext(), viewModel, this);
             binding.recyclerViewSepetYemekler.setAdapter(adapter);
         });
-
-
         return binding.getRoot();
     }
 
@@ -51,5 +48,16 @@ public class BasketFragment extends Fragment {
     public void onResume() {
         super.onResume();
         viewModel.sepettekiYemekleriYukle("mehmet_karaca");
+    }
+
+    @Override
+    public void onEmptyStateChanged(boolean isEmpty) {
+        if (isEmpty) {
+            binding.emptyStateTextView.setVisibility(View.VISIBLE);
+            binding.recyclerViewSepetYemekler.setVisibility(View.GONE);
+        } else {
+            binding.emptyStateTextView.setVisibility(View.GONE);
+            binding.recyclerViewSepetYemekler.setVisibility(View.VISIBLE);
+        }
     }
 }
