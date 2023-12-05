@@ -16,7 +16,7 @@ public class DetailViewModel extends ViewModel {
 
 
     @Inject
-    public DetailViewModel(YemeklerDaoRepository yemeklerDaoRepository,SepetYemeklerDaoRepository sepetYemeklerDaoRepository) {
+    public DetailViewModel(YemeklerDaoRepository yemeklerDaoRepository, SepetYemeklerDaoRepository sepetYemeklerDaoRepository) {
         this.yemeklerDaoRepository = yemeklerDaoRepository;
 
         this.sepetYemeklerDaoRepository = sepetYemeklerDaoRepository;
@@ -24,8 +24,8 @@ public class DetailViewModel extends ViewModel {
 
 
     public void sepeteYemekEkle(String yemek_adi, String yemek_resim_adi,
-                                int yemek_fiyat, int yemek_siparis_adet, String kullanici_adi){
-        sepetYemeklerDaoRepository.sepeteYemekEkle(yemek_adi, yemek_resim_adi, yemek_fiyat,
+                                int yemek_fiyat, int yemek_siparis_adet, String kullanici_adi) {
+        sepetYemeklerDaoRepository.sepeteYemekEkleKontrol(yemek_adi, yemek_resim_adi, yemek_fiyat,
                 yemek_siparis_adet, kullanici_adi);
     }
 

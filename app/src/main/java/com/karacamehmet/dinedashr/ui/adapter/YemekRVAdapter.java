@@ -9,9 +9,11 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.karacamehmet.dinedashr.data.entity.YemekListeleme;
 import com.karacamehmet.dinedashr.data.entity.Yemekler;
 import com.karacamehmet.dinedashr.databinding.YemekCardDesignBinding;
 import com.karacamehmet.dinedashr.ui.fragment.HomeFragmentDirections;
+import com.karacamehmet.dinedashr.ui.viewmodel.HomeViewModel;
 
 
 import java.text.Normalizer;
@@ -25,12 +27,15 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
     private List<Yemekler> yemekler;
     private Context mContext;
     private List<Yemekler> filteredYemekler;
+    private HomeViewModel viewModel;
+    private List<YemekListeleme> yemekListelemes;
 
 
-    public YemekRVAdapter(List<Yemekler> yemekler, Context mContext) {
+    public YemekRVAdapter(List<Yemekler> yemekler, Context mContext, HomeViewModel viewModel) {
         this.yemekler = yemekler;
         this.filteredYemekler = new ArrayList<>(yemekler);
         this.mContext = mContext;
+        this.viewModel = viewModel;
     }
 
     public class CardDesignHolder extends RecyclerView.ViewHolder {

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 
+import com.karacamehmet.dinedashr.data.entity.YemekListeleme;
 import com.karacamehmet.dinedashr.databinding.FragmentHomeBinding;
 import com.karacamehmet.dinedashr.ui.adapter.YemekRVAdapter;
 import com.karacamehmet.dinedashr.ui.viewmodel.HomeViewModel;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,6 +46,15 @@ public class HomeFragment extends Fragment {
 
         binding.spinnerFiltre.setSelection(0);
 
+        viewModel.yemekListelemeListesi.observe(getViewLifecycleOwner(), yemekListelemes -> {
+            for (YemekListeleme yemek : yemekListelemes) {
+                Log.e("Denemeid", String.valueOf(yemek.getYemekListelemeId()));
+                Log.e("Denemetur", String.valueOf(yemek.getYemekListelemeTur()));
+                Log.e("Denemefavori", String.valueOf(yemek.getYemekListelemeFavori()));
+            }
+
+        });
+
 
         binding.recyclerViewYemekler.setLayoutManager(
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -50,12 +62,13 @@ public class HomeFragment extends Fragment {
 
         viewModel.yemeklerListesi.observe(getViewLifecycleOwner(), yemeklers -> {
 
-            YemekRVAdapter adapter = new YemekRVAdapter(yemeklers, requireContext());
+            YemekRVAdapter adapter = new YemekRVAdapter(yemeklers, requireContext(), viewModel);
             binding.recyclerViewYemekler.setAdapter(adapter);
             binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    return false;
+                    adapter.filterSearch(query);
+                    return true;
                 }
 
                 @Override

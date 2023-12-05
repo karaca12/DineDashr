@@ -55,4 +55,8 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.44")
     annotationProcessor("com.google.dagger:hilt-android-compiler:2.44")
     implementation("com.github.bumptech.glide:glide:4.13.2")
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation ("androidx.room:room-rxjava2:2.6.1")
+    implementation ("io.reactivex.rxjava2:rxandroid:2.0.1")
+    annotationProcessor ("androidx.room:room-compiler:2.6.1")
 }

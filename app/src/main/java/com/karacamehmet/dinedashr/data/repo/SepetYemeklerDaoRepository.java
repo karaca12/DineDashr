@@ -38,6 +38,34 @@ public class SepetYemeklerDaoRepository {
                 });
     }
 
+
+    public void sepeteYemekEkleKontrol(String yemek_adi, String yemek_resim_adi,
+                                       int yemek_fiyat, int yemek_siparis_adet, String kullanici_adi) {
+
+        SepetYemekler existingItem = getSepetYemekByAd(kullanici_adi, yemek_adi);
+
+        if (existingItem != null) {
+            int totalAdet = existingItem.getYemek_siparis_adet() + yemek_siparis_adet;
+            sepettenYemekSil(existingItem.getSepet_yemek_id(), kullanici_adi);
+            sepeteYemekEkle(yemek_adi, yemek_resim_adi, yemek_fiyat, totalAdet, kullanici_adi);
+        } else {
+            sepeteYemekEkle(yemek_adi, yemek_resim_adi, yemek_fiyat, yemek_siparis_adet, kullanici_adi);
+        }
+    }
+
+    private SepetYemekler getSepetYemekByAd(String kullanici_adi, String yemek_adi) {
+        List<SepetYemekler> sepetYemeklerList = sepetYemeklerListesi.getValue();
+        if (sepetYemeklerList != null) {
+            SepetYemekler existingItem = sepetYemeklerList.stream()
+                    .filter(yemek -> yemek.getYemek_adi().equals(yemek_adi))
+                    .findFirst()
+                    .orElse(null);
+            return existingItem;
+        }
+        return null;
+    }
+
+
     public void sepettekiYemekleriYukle(String kullanici_adi) {
         sepetYemeklerDao.sepettekiYemekleriGetir(kullanici_adi).enqueue(new Callback<SepetYemeklerCevap>() {
             @Override
