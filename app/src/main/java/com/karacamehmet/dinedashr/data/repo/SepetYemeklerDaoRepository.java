@@ -42,7 +42,7 @@ public class SepetYemeklerDaoRepository {
     public void sepeteYemekEkleKontrol(String yemek_adi, String yemek_resim_adi,
                                        int yemek_fiyat, int yemek_siparis_adet, String kullanici_adi) {
 
-        SepetYemekler existingItem = getSepetYemekByAd(kullanici_adi, yemek_adi);
+        SepetYemekler existingItem = getSepetYemekByAd(yemek_adi);
 
         if (existingItem != null) {
             int totalAdet = existingItem.getYemek_siparis_adet() + yemek_siparis_adet;
@@ -53,7 +53,7 @@ public class SepetYemeklerDaoRepository {
         }
     }
 
-    private SepetYemekler getSepetYemekByAd(String kullanici_adi, String yemek_adi) {
+    private SepetYemekler getSepetYemekByAd(String yemek_adi) {
         List<SepetYemekler> sepetYemeklerList = sepetYemeklerListesi.getValue();
         if (sepetYemeklerList != null) {
             SepetYemekler existingItem = sepetYemeklerList.stream()
