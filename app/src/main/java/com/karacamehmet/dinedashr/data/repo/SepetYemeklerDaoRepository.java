@@ -1,5 +1,8 @@
 package com.karacamehmet.dinedashr.data.repo;
 
+import android.util.Log;
+
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
 import com.karacamehmet.dinedashr.data.entity.CRUDCevap;
@@ -28,7 +31,7 @@ public class SepetYemeklerDaoRepository {
                 .enqueue(new Callback<CRUDCevap>() {
                     @Override
                     public void onResponse(Call<CRUDCevap> call, Response<CRUDCevap> response) {
-
+                        sepettekiYemekleriYukle(kullanici_adi);
                     }
 
                     @Override
@@ -42,7 +45,7 @@ public class SepetYemeklerDaoRepository {
     public void sepeteYemekEkleKontrol(String yemek_adi, String yemek_resim_adi,
                                        int yemek_fiyat, int yemek_siparis_adet, String kullanici_adi) {
 
-        SepetYemekler existingItem = getSepetYemekByAd(yemek_adi);
+        SepetYemekler existingItem = getSepetYemekByAd(yemek_adi, kullanici_adi);
 
         if (existingItem != null) {
             int totalAdet = existingItem.getYemek_siparis_adet() + yemek_siparis_adet;
@@ -53,14 +56,16 @@ public class SepetYemeklerDaoRepository {
         }
     }
 
-    private SepetYemekler getSepetYemekByAd(String yemek_adi) {
+    @Nullable
+    private SepetYemekler getSepetYemekByAd(String yemek_adi, String kullanici_adi) {
+        sepettekiYemekleriYukle(kullanici_adi);
+        Log.e("deneme", String.valueOf(sepetYemeklerListesi.getValue()));
         List<SepetYemekler> sepetYemeklerList = sepetYemeklerListesi.getValue();
         if (sepetYemeklerList != null) {
-            SepetYemekler existingItem = sepetYemeklerList.stream()
+            return sepetYemeklerList.stream()
                     .filter(yemek -> yemek.getYemek_adi().equals(yemek_adi))
                     .findFirst()
                     .orElse(null);
-            return existingItem;
         }
         return null;
     }

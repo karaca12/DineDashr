@@ -20,6 +20,7 @@ public class DetailViewModel extends ViewModel {
         this.yemeklerDaoRepository = yemeklerDaoRepository;
 
         this.sepetYemeklerDaoRepository = sepetYemeklerDaoRepository;
+        sepettekiYemekleriYukle("mehmet_karaca");
     }
 
 
@@ -27,6 +28,10 @@ public class DetailViewModel extends ViewModel {
                                 int yemek_fiyat, int yemek_siparis_adet, String kullanici_adi) {
         sepetYemeklerDaoRepository.sepeteYemekEkleKontrol(yemek_adi, yemek_resim_adi, yemek_fiyat,
                 yemek_siparis_adet, kullanici_adi);
+    }
+
+    public void sepettekiYemekleriYukle(String kullanici_adi) {
+        sepetYemeklerDaoRepository.sepettekiYemekleriYukle(kullanici_adi);
     }
 
 }

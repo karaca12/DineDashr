@@ -47,11 +47,6 @@ public class HomeFragment extends Fragment {
         binding.spinnerFiltre.setSelection(0);
 
         viewModel.yemekListelemeListesi.observe(getViewLifecycleOwner(), yemekListelemes -> {
-            for (YemekListeleme yemek : yemekListelemes) {
-                Log.e("Denemeid", String.valueOf(yemek.getYemekListelemeId()));
-                Log.e("Denemetur", String.valueOf(yemek.getYemekListelemeTur()));
-                Log.e("Denemefavori", String.valueOf(yemek.getYemekListelemeFavori()));
-            }
 
         });
 
