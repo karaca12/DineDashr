@@ -20,11 +20,14 @@ import com.karacamehmet.dinedashr.ui.activity.MainActivity;
 import com.karacamehmet.dinedashr.ui.viewmodel.BasketViewModel;
 import com.karacamehmet.dinedashr.ui.viewmodel.HomeViewModel;
 
+import java.util.List;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
+    private BasketViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,11 +44,18 @@ public class ProfileFragment extends Fragment {
             editor.clear();
             editor.apply();
             Intent intent = new Intent(getActivity(), LoginActivity.class);
+            viewModel.sepetYemeklerListesi.observe(getViewLifecycleOwner(), List::clear);
             startActivity(intent);
         });
 
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(BasketViewModel.class);
     }
 
 }

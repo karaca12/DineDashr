@@ -38,7 +38,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-
         ArrayAdapter<String> filterAdapter = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_spinner_item, filters);
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -97,13 +96,9 @@ public class HomeFragment extends Fragment {
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-
                 }
             });
-
         });
-
-
         return binding.getRoot();
     }
 
