@@ -62,7 +62,7 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
         String URL = "http://kasimadalan.pe.hu/yemekler/resimler/" + yemek.getYemek_resim_adi();
 
         designBinding.textViewDesignYemekAdi.setText(yemek.getYemek_adi());
-        designBinding.textViewDesignYemekFiyati.setText(Integer.toString(yemek.getYemek_fiyat()) + "₺");
+        designBinding.textViewDesignYemekFiyati.setText(String.valueOf(yemek.getYemek_fiyat()) + "₺");
 
         Glide.with(mContext).load(URL).override(300).into(designBinding.imageViewDesignYemek);
 

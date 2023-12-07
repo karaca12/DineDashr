@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.karacamehmet.dinedashr.R;
+import com.karacamehmet.dinedashr.data.entity.SepetYemekler;
 import com.karacamehmet.dinedashr.databinding.FragmentBasketBinding;
 import com.karacamehmet.dinedashr.ui.adapter.SepetRVAdapter;
 import com.karacamehmet.dinedashr.ui.viewmodel.BasketViewModel;
@@ -34,7 +35,14 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
         viewModel.sepetYemeklerListesi.observe(getViewLifecycleOwner(), sepetYemeklers -> {
             SepetRVAdapter adapter = new SepetRVAdapter(sepetYemeklers, requireContext(), viewModel, this);
             binding.recyclerViewSepetYemekler.setAdapter(adapter);
+            int toplamFiyat = 0;
+            for (SepetYemekler sepetYemekler : sepetYemeklers) {
+                toplamFiyat += (sepetYemekler.getYemek_fiyat() * sepetYemekler.getYemek_siparis_adet());
+            }
+            binding.textViewToplamFiyat.setText(String.valueOf(toplamFiyat));
         });
+
+
         return binding.getRoot();
     }
 
@@ -54,10 +62,14 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
     public void onEmptyStateChanged(boolean isEmpty) {
         if (isEmpty) {
             binding.emptyStateTextView.setVisibility(View.VISIBLE);
-            binding.recyclerViewSepetYemekler.setVisibility(View.GONE);
+            binding.recyclerViewSepetYemekler.setVisibility(View.INVISIBLE);
+            binding.textViewToplamFiyat.setVisibility(View.INVISIBLE);
+            binding.buttonSepetOnayla.setVisibility(View.INVISIBLE);
         } else {
-            binding.emptyStateTextView.setVisibility(View.GONE);
+            binding.emptyStateTextView.setVisibility(View.INVISIBLE);
             binding.recyclerViewSepetYemekler.setVisibility(View.VISIBLE);
+            binding.textViewToplamFiyat.setVisibility(View.VISIBLE);
+            binding.buttonSepetOnayla.setVisibility(View.VISIBLE);
         }
     }
 }

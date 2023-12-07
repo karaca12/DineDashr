@@ -33,7 +33,7 @@ public class DetailFragment extends Fragment {
         Yemekler gelenYemek = bundle.getYemek();
 
         binding.textViewDetailAd.setText(gelenYemek.getYemek_adi());
-        binding.textViewDetailFiyat.setText(Integer.toString(gelenYemek.getYemek_fiyat()) + "₺");
+        binding.textViewDetailFiyat.setText(String.valueOf(gelenYemek.getYemek_fiyat()) + "₺");
 
         String URL = "http://kasimadalan.pe.hu/yemekler/resimler/" + gelenYemek.getYemek_resim_adi();
 

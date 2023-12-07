@@ -60,11 +60,11 @@ public class SepetRVAdapter extends RecyclerView.Adapter<SepetRVAdapter.CardDesi
 
         designBinding.textViewSepetYemekAdi.setText(sepetYemek.getYemek_adi());
         designBinding.textViewSepetYemekAdet.setText(
-                Integer.toString(sepetYemek.getYemek_siparis_adet()) + " adet");
+                String.valueOf(sepetYemek.getYemek_siparis_adet()) + " adet");
         designBinding.textViewSepetYemekFiyat.setText(
-                Integer.toString(sepetYemek.getYemek_fiyat()) + "₺");
+                String.valueOf(sepetYemek.getYemek_fiyat()) + "₺");
         designBinding.textViewSepetToplamFiyat.setText(
-                Integer.toString(sepetYemek.getYemek_siparis_adet() * sepetYemek.getYemek_fiyat()) + "₺");
+                String.valueOf(sepetYemek.getYemek_siparis_adet() * sepetYemek.getYemek_fiyat()) + "₺");
         Glide.with(mContext).load(URL).override(300).into(designBinding.imageViewSepetYemekResim);
 
         designBinding.imageViewThrash.setOnClickListener(v -> {

@@ -50,7 +50,6 @@ public class HomeFragment extends Fragment {
 
         });
 
-
         binding.recyclerViewYemekler.setLayoutManager(
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
@@ -59,6 +58,7 @@ public class HomeFragment extends Fragment {
 
             YemekRVAdapter adapter = new YemekRVAdapter(yemeklers, requireContext(), viewModel);
             binding.recyclerViewYemekler.setAdapter(adapter);
+
             binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
