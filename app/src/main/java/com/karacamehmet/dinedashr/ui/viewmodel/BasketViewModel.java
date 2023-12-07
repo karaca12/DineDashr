@@ -1,5 +1,9 @@
 package com.karacamehmet.dinedashr.ui.viewmodel;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -11,16 +15,19 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
 @HiltViewModel
 public class BasketViewModel extends ViewModel {
     public SepetYemeklerDaoRepository sepetYemeklerDaoRepository;
     public MutableLiveData<List<SepetYemekler>> sepetYemeklerListesi;
+    private SharedPreferences sharedPreferences;
 
     @Inject
-    public BasketViewModel(SepetYemeklerDaoRepository sepetYemeklerDaoRepository) {
+    public BasketViewModel(SepetYemeklerDaoRepository sepetYemeklerDaoRepository, Application application) {
         this.sepetYemeklerDaoRepository = sepetYemeklerDaoRepository;
-        sepettekiYemekleriYukle("mehmet_karaca");
+        sharedPreferences = application.getSharedPreferences("kullanici_adi", Context.MODE_PRIVATE);
+        sepettekiYemekleriYukle(sharedPreferences.getString("kullanici_adi", ""));
         sepetYemeklerListesi = sepetYemeklerDaoRepository.sepetYemeklerListesi;
     }
 

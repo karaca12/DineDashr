@@ -1,5 +1,9 @@
 package com.karacamehmet.dinedashr.ui.viewmodel;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.lifecycle.ViewModel;
 
 import com.karacamehmet.dinedashr.data.repo.SepetYemeklerDaoRepository;
@@ -13,14 +17,17 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class DetailViewModel extends ViewModel {
     public YemeklerDaoRepository yemeklerDaoRepository;
     public SepetYemeklerDaoRepository sepetYemeklerDaoRepository;
+    private SharedPreferences sharedPreferences;
 
 
     @Inject
-    public DetailViewModel(YemeklerDaoRepository yemeklerDaoRepository, SepetYemeklerDaoRepository sepetYemeklerDaoRepository) {
+    public DetailViewModel(YemeklerDaoRepository yemeklerDaoRepository,
+                           SepetYemeklerDaoRepository sepetYemeklerDaoRepository,
+                           Application application) {
         this.yemeklerDaoRepository = yemeklerDaoRepository;
-
         this.sepetYemeklerDaoRepository = sepetYemeklerDaoRepository;
-        sepettekiYemekleriYukle("mehmet_karaca");
+        sharedPreferences = application.getSharedPreferences("kullanici_adi", Context.MODE_PRIVATE);
+        sepettekiYemekleriYukle(sharedPreferences.getString("kullanici_adi", ""));
     }
 
 

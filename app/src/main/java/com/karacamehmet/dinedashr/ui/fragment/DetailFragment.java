@@ -1,5 +1,7 @@
 package com.karacamehmet.dinedashr.ui.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class DetailFragment extends Fragment {
     private FragmentDetailBinding binding;
     private DetailViewModel viewModel;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,11 +44,13 @@ public class DetailFragment extends Fragment {
 
         binding.buttonSepeteEkle.setOnClickListener(v -> {
             if (Integer.parseInt(binding.textViewYemekAdet.getText().toString()) > 0) {
+                sharedPreferences = getActivity().getSharedPreferences("kullanici_adi",
+                        Context.MODE_PRIVATE);
                 viewModel.sepeteYemekEkle(
                         gelenYemek.getYemek_adi(), gelenYemek.getYemek_resim_adi(),
                         gelenYemek.getYemek_fiyat(),
                         Integer.parseInt(binding.textViewYemekAdet.getText().toString()),
-                        "mehmet_karaca");
+                        sharedPreferences.getString("kullanici_adi", ""));
                 Snackbar.make(v, "Sepete Eklendi", Snackbar.LENGTH_SHORT).show();
                 binding.textViewYemekAdet.setText("0");
 

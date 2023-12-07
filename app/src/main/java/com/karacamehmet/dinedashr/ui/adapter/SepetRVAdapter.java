@@ -1,6 +1,7 @@
 package com.karacamehmet.dinedashr.ui.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -21,6 +22,7 @@ public class SepetRVAdapter extends RecyclerView.Adapter<SepetRVAdapter.CardDesi
     private Context mContext;
     private BasketViewModel viewModel;
     private EmptyStateListener emptyStateListener;
+    private SharedPreferences sharedPreferences;
 
     public interface EmptyStateListener {
         void onEmptyStateChanged(boolean isEmpty);
@@ -58,6 +60,7 @@ public class SepetRVAdapter extends RecyclerView.Adapter<SepetRVAdapter.CardDesi
         SepetCardDesignBinding designBinding = holder.designBinding;
         String URL = "http://kasimadalan.pe.hu/yemekler/resimler/" + sepetYemek.getYemek_resim_adi();
 
+
         designBinding.textViewSepetYemekAdi.setText(sepetYemek.getYemek_adi());
         designBinding.textViewSepetYemekAdet.setText(
                 String.valueOf(sepetYemek.getYemek_siparis_adet()) + " adet");
@@ -70,7 +73,10 @@ public class SepetRVAdapter extends RecyclerView.Adapter<SepetRVAdapter.CardDesi
         designBinding.imageViewThrash.setOnClickListener(v -> {
             Snackbar.make(v, "Silinsin mi?", Snackbar.LENGTH_SHORT)
                     .setAction("EVET", v1 -> {
-                        viewModel.sepettenYemekSil(sepetYemek.getSepet_yemek_id(), "mehmet_karaca");
+                        sharedPreferences = mContext.getSharedPreferences("kullanici_adi",
+                                Context.MODE_PRIVATE);
+                        viewModel.sepettenYemekSil(sepetYemek.getSepet_yemek_id(),
+                                sharedPreferences.getString("kullanici_adi", ""));
                         sepetYemekler.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, sepetYemekler.size());

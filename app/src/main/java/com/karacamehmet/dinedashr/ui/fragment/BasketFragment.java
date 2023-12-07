@@ -1,5 +1,7 @@
 package com.karacamehmet.dinedashr.ui.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStateListener {
     private FragmentBasketBinding binding;
     private BasketViewModel viewModel;
-
+    private SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +41,7 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
             for (SepetYemekler sepetYemekler : sepetYemeklers) {
                 toplamFiyat += (sepetYemekler.getYemek_fiyat() * sepetYemekler.getYemek_siparis_adet());
             }
-            binding.textViewToplamFiyat.setText("Toplam Fiyat: "+String.valueOf(toplamFiyat)+"₺");
+            binding.textViewToplamFiyat.setText("Toplam Fiyat: " + String.valueOf(toplamFiyat) + "₺");
         });
 
 
@@ -55,7 +57,9 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
     @Override
     public void onResume() {
         super.onResume();
-        viewModel.sepettekiYemekleriYukle("mehmet_karaca");
+        sharedPreferences = getActivity().getSharedPreferences("kullanici_adi",
+                Context.MODE_PRIVATE);
+        viewModel.sepettekiYemekleriYukle(sharedPreferences.getString("kullanici_adi", ""));
     }
 
     @Override
