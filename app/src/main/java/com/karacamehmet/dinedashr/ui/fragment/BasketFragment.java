@@ -39,7 +39,7 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
             for (SepetYemekler sepetYemekler : sepetYemeklers) {
                 toplamFiyat += (sepetYemekler.getYemek_fiyat() * sepetYemekler.getYemek_siparis_adet());
             }
-            binding.textViewToplamFiyat.setText(String.valueOf(toplamFiyat));
+            binding.textViewToplamFiyat.setText("Toplam Fiyat: "+String.valueOf(toplamFiyat)+"₺");
         });
 
 
