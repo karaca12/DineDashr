@@ -61,6 +61,8 @@ public class DetailFragment extends Fragment {
         binding.buttonArttir.setOnClickListener(v -> {
             int yemekAdet = Integer.parseInt(binding.textViewYemekAdet.getText().toString()) + 1;
             binding.textViewYemekAdet.setText(String.valueOf(yemekAdet));
+            binding.textViewDetailYemekToplamFiyat.setText(String.valueOf(
+                    yemekAdet*gelenYemek.getYemek_fiyat())+"₺");
         });
 
         binding.buttonEksilt.setOnClickListener(v -> {
@@ -69,6 +71,8 @@ public class DetailFragment extends Fragment {
                 yemekAdet--;
             }
             binding.textViewYemekAdet.setText(String.valueOf(yemekAdet));
+            binding.textViewDetailYemekToplamFiyat.setText(String.valueOf(
+                    yemekAdet*gelenYemek.getYemek_fiyat())+"₺");
         });
 
         binding.imageViewGeri.setOnClickListener(v -> {
