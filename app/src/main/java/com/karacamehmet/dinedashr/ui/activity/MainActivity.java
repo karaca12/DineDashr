@@ -1,5 +1,6 @@
 package com.karacamehmet.dinedashr.ui.activity;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -47,6 +48,18 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        OnBackPressedCallback backPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                int count = getSupportFragmentManager().getBackStackEntryCount();
+                if (count == 0) {
+                    finishAffinity();
+                } else {
+                    getSupportFragmentManager().popBackStack();
+                }
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(backPressedCallback);
 
     }
 }
