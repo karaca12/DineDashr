@@ -27,15 +27,13 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
     private List<Yemekler> yemekler;
     private Context mContext;
     private List<Yemekler> filteredYemekler;
-    private HomeViewModel viewModel;
-    private List<YemekListeleme> yemekListelemes;
+
 
 
     public YemekRVAdapter(List<Yemekler> yemekler, Context mContext, HomeViewModel viewModel) {
         this.yemekler = yemekler;
         this.filteredYemekler = new ArrayList<>(yemekler);
         this.mContext = mContext;
-        this.viewModel = viewModel;
     }
 
     public class CardDesignHolder extends RecyclerView.ViewHolder {
@@ -75,22 +73,22 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
     }
 
     public void sortByNameAZ() {
-        Collections.sort(filteredYemekler, Comparator.comparing(Yemekler::getYemek_adi));
+        filteredYemekler.sort(Comparator.comparing(Yemekler::getYemek_adi));
         notifyDataSetChanged();
     }
 
     public void sortByNameZA() {
-        Collections.sort(filteredYemekler, (yemek1, yemek2) -> yemek2.getYemek_adi().compareTo(yemek1.getYemek_adi()));
+        filteredYemekler.sort((yemek1, yemek2) -> yemek2.getYemek_adi().compareTo(yemek1.getYemek_adi()));
         notifyDataSetChanged();
     }
 
     public void sortByPriceLowToHigh() {
-        Collections.sort(filteredYemekler, Comparator.comparingInt(Yemekler::getYemek_fiyat));
+        filteredYemekler.sort(Comparator.comparingInt(Yemekler::getYemek_fiyat));
         notifyDataSetChanged();
     }
 
     public void sortByPriceHighToLow() {
-        Collections.sort(filteredYemekler, (yemek1, yemek2) ->
+        filteredYemekler.sort((yemek1, yemek2) ->
                 Integer.compare(yemek2.getYemek_fiyat(), yemek1.getYemek_fiyat()));
         notifyDataSetChanged();
     }
