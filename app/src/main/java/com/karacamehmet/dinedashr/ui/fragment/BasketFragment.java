@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -19,6 +20,8 @@ import com.karacamehmet.dinedashr.databinding.FragmentBasketBinding;
 import com.karacamehmet.dinedashr.ui.adapter.SepetRVAdapter;
 import com.karacamehmet.dinedashr.ui.viewmodel.BasketViewModel;
 
+import java.util.List;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -28,13 +31,13 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
     private SharedPreferences sharedPreferences;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBasketBinding.inflate(inflater, container, false);
 
         binding.recyclerViewSepetYemekler.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         viewModel.sepetYemeklerListesi.observe(getViewLifecycleOwner(), sepetYemeklers -> {
+
             SepetRVAdapter adapter = new SepetRVAdapter(sepetYemeklers, requireContext(), viewModel, this);
             binding.recyclerViewSepetYemekler.setAdapter(adapter);
             int toplamFiyat = 0;
@@ -42,6 +45,13 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
                 toplamFiyat += (sepetYemekler.getYemek_fiyat() * sepetYemekler.getYemek_siparis_adet());
             }
             binding.textViewToplamFiyat.setText("Toplam Fiyat: " + String.valueOf(toplamFiyat) + "₺");
+            binding.buttonSepetOnayla.setOnClickListener(v -> {
+                for (SepetYemekler sepetYemek : sepetYemeklers) {
+                    viewModel.sepettenYemekSil(sepetYemek.getSepet_yemek_id(), sepetYemek.getKullanici_adi());
+                }
+                sepetYemeklers.clear();
+                onEmptyStateChanged(true);
+            });
         });
 
 
@@ -57,8 +67,7 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
     @Override
     public void onResume() {
         super.onResume();
-        sharedPreferences = getActivity().getSharedPreferences("kullanici_adi",
-                Context.MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences("kullanici_adi", Context.MODE_PRIVATE);
         viewModel.sepettekiYemekleriYukle(sharedPreferences.getString("kullanici_adi", ""));
     }
 
