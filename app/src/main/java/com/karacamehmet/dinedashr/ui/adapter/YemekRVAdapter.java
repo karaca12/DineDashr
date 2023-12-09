@@ -9,7 +9,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.karacamehmet.dinedashr.data.entity.YemekListeleme;
 import com.karacamehmet.dinedashr.data.entity.Yemekler;
 import com.karacamehmet.dinedashr.databinding.YemekCardDesignBinding;
 import com.karacamehmet.dinedashr.ui.fragment.HomeFragmentDirections;
@@ -18,7 +17,6 @@ import com.karacamehmet.dinedashr.ui.viewmodel.HomeViewModel;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -27,8 +25,6 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
     private List<Yemekler> yemekler;
     private Context mContext;
     private List<Yemekler> filteredYemekler;
-
-
 
     public YemekRVAdapter(List<Yemekler> yemekler, Context mContext, HomeViewModel viewModel) {
         this.yemekler = yemekler;
@@ -69,7 +65,6 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
                     HomeFragmentDirections.actionHomeFragmentToDetailFragment(yemek);
             Navigation.findNavController(v).navigate(navigation);
         });
-
     }
 
     public void sortByNameAZ() {

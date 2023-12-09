@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 
-import com.karacamehmet.dinedashr.data.entity.YemekListeleme;
 import com.karacamehmet.dinedashr.databinding.FragmentHomeBinding;
 import com.karacamehmet.dinedashr.ui.adapter.YemekRVAdapter;
 import com.karacamehmet.dinedashr.ui.viewmodel.HomeViewModel;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,13 +42,9 @@ public class HomeFragment extends Fragment {
 
         binding.spinnerFiltre.setSelection(0);
 
-        viewModel.yemekListelemeListesi.observe(getViewLifecycleOwner(), yemekListelemes -> {
-
-        });
 
         binding.recyclerViewYemekler.setLayoutManager(
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-
 
         viewModel.yemeklerListesi.observe(getViewLifecycleOwner(), yemeklers -> {
 
