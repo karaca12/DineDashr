@@ -42,7 +42,6 @@ public class HomeFragment extends Fragment {
 
         binding.spinnerFiltre.setSelection(0);
 
-
         binding.recyclerViewYemekler.setLayoutManager(
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
