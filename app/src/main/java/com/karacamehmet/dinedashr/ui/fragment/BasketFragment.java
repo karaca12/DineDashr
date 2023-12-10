@@ -48,7 +48,7 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
             for (SepetYemekler sepetYemekler : sepetYemeklers) {
                 toplamFiyat += (sepetYemekler.getYemek_fiyat() * sepetYemekler.getYemek_siparis_adet());
             }
-            binding.textViewToplamFiyat.setText("Toplam Fiyat: " + String.valueOf(toplamFiyat) + "₺");
+            binding.textViewToplamFiyat.setText("₺" + String.valueOf(toplamFiyat));
             binding.buttonSepetOnayla.setOnClickListener(v -> {
                 new MaterialAlertDialogBuilder(getContext())
                         .setTitle("Sepeti Onayla")
@@ -106,11 +106,13 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
             binding.emptyStateTextView.setVisibility(View.VISIBLE);
             binding.recyclerViewSepetYemekler.setVisibility(View.INVISIBLE);
             binding.textViewToplamFiyat.setVisibility(View.INVISIBLE);
+            binding.textViewToplamFiyatText.setVisibility(View.INVISIBLE);
             binding.buttonSepetOnayla.setVisibility(View.INVISIBLE);
         } else {
             binding.emptyStateTextView.setVisibility(View.INVISIBLE);
             binding.recyclerViewSepetYemekler.setVisibility(View.VISIBLE);
             binding.textViewToplamFiyat.setVisibility(View.VISIBLE);
+            binding.textViewToplamFiyatText.setVisibility(View.VISIBLE);
             binding.buttonSepetOnayla.setVisibility(View.VISIBLE);
         }
     }

@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="main_text_color">#060604</color>
     <color name="price_text_color">#B28451</color>
+    <color name="card_background">#E3E3E3</color>
 </resources>
