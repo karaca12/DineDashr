@@ -14,11 +14,7 @@
         android:id="@+id/basketFragment"
         android:name="com.karacamehmet.dinedashr.ui.fragment.BasketFragment"
         android:label="fragment_basket"
-        tools:layout="@layout/fragment_basket" >
-        <argument
-            android:name="sepetYemekler"
-            app:argType="com.karacamehmet.dinedashr.data.entity.SepetYemekler" />
-    </fragment>
+        tools:layout="@layout/fragment_basket" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.karacamehmet.dinedashr.ui.fragment.DetailFragment"
