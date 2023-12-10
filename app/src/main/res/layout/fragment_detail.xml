@@ -10,7 +10,7 @@
         android:id="@+id/imageViewDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:src="@drawable/holderimage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -22,7 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Yemek"
+        android:textColor="@color/main_text_color"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/textViewDetailFiyat"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +36,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="0₺"
+        android:textColor="@color/price_text_color"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewDetailAd"
@@ -44,7 +50,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/card_background"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Sepete Ekle"
+        android:textColor="@color/main_text_color"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -58,37 +68,44 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/geri_tusu"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/main_text_color" />
 
     <Button
         android:id="@+id/buttonEksilt"
+        style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginStart="96dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="-"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSepeteEkle"
-        app:layout_constraintEnd_toStartOf="@+id/textViewYemekAdet"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/textViewYemekAdet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewYemekAdet"
+        app:layout_constraintVertical_bias="0.571" />
 
     <Button
         android:id="@+id/buttonArttir"
+        style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="96dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="+"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSepeteEkle"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewYemekAdet"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textViewYemekAdet" />
+        app:layout_constraintTop_toTopOf="@+id/textViewYemekAdet" />
 
     <TextView
         android:id="@+id/textViewYemekAdet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="0"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSepeteEkle"
+        android:textColor="@color/main_text_color"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDetailYemekToplamFiyat"
         app:layout_constraintEnd_toStartOf="@+id/buttonArttir"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/buttonEksilt" />
@@ -97,12 +114,15 @@
         android:id="@+id/textViewDetailYemekToplamFiyat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="32dp"
-        android:text="0₺"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="₺0"
+        android:textColor="@color/price_text_color"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonSepeteEkle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/textViewYemekAdet" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/sepetEkleAnimasyon"
         android:layout_width="wrap_content"
@@ -114,4 +134,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_rawRes="@raw/sepete_ekle" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Toplam:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSepeteEkle"
+        app:layout_constraintEnd_toStartOf="@+id/textViewYemekAdet" />
 </androidx.constraintlayout.widget.ConstraintLayout>

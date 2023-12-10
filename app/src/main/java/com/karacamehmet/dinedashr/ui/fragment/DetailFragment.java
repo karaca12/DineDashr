@@ -38,7 +38,7 @@ public class DetailFragment extends Fragment {
         Yemekler gelenYemek = bundle.getYemek();
 
         binding.textViewDetailAd.setText(gelenYemek.getYemek_adi());
-        binding.textViewDetailFiyat.setText(String.valueOf(gelenYemek.getYemek_fiyat()) + "₺");
+        binding.textViewDetailFiyat.setText("₺" + String.valueOf(gelenYemek.getYemek_fiyat()));
 
         String URL = "http://kasimadalan.pe.hu/yemekler/resimler/" + gelenYemek.getYemek_resim_adi();
 
@@ -46,6 +46,9 @@ public class DetailFragment extends Fragment {
 
         binding.buttonSepeteEkle.setOnClickListener(v -> {
             if (Integer.parseInt(binding.textViewYemekAdet.getText().toString()) > 0) {
+                binding.buttonArttir.setEnabled(false);
+                binding.buttonEksilt.setEnabled(false);
+                binding.buttonSepeteEkle.setEnabled(false);
                 sharedPreferences = getActivity().getSharedPreferences("kullanici_adi",
                         Context.MODE_PRIVATE);
                 viewModel.sepeteYemekEkle(
@@ -54,7 +57,7 @@ public class DetailFragment extends Fragment {
                         Integer.parseInt(binding.textViewYemekAdet.getText().toString()),
                         sharedPreferences.getString("kullanici_adi", ""));
                 binding.textViewYemekAdet.setText("0");
-                binding.textViewDetailYemekToplamFiyat.setText("0₺");
+                binding.textViewDetailYemekToplamFiyat.setText("₺0");
                 binding.sepetEkleAnimasyon.setVisibility(View.VISIBLE);
                 binding.sepetEkleAnimasyon.playAnimation();
                 binding.sepetEkleAnimasyon.addAnimatorListener(new AnimatorListenerAdapter() {
@@ -62,8 +65,13 @@ public class DetailFragment extends Fragment {
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
                         binding.sepetEkleAnimasyon.setVisibility(View.INVISIBLE);
+                        binding.buttonArttir.setEnabled(true);
+                        binding.buttonEksilt.setEnabled(true);
+                        binding.buttonSepeteEkle.setEnabled(true);
                     }
                 });
+            } else {
+                Snackbar.make(v, "Ürün adetini artırınız", Snackbar.LENGTH_SHORT).show();
             }
 
         });
@@ -71,8 +79,8 @@ public class DetailFragment extends Fragment {
         binding.buttonArttir.setOnClickListener(v -> {
             int yemekAdet = Integer.parseInt(binding.textViewYemekAdet.getText().toString()) + 1;
             binding.textViewYemekAdet.setText(String.valueOf(yemekAdet));
-            binding.textViewDetailYemekToplamFiyat.setText(String.valueOf(
-                    yemekAdet * gelenYemek.getYemek_fiyat()) + "₺");
+            binding.textViewDetailYemekToplamFiyat.setText("₺" + String.valueOf(
+                    yemekAdet * gelenYemek.getYemek_fiyat()));
         });
 
         binding.buttonEksilt.setOnClickListener(v -> {
@@ -81,8 +89,8 @@ public class DetailFragment extends Fragment {
                 yemekAdet--;
             }
             binding.textViewYemekAdet.setText(String.valueOf(yemekAdet));
-            binding.textViewDetailYemekToplamFiyat.setText(String.valueOf(
-                    yemekAdet * gelenYemek.getYemek_fiyat()) + "₺");
+            binding.textViewDetailYemekToplamFiyat.setText("₺" + String.valueOf(
+                    yemekAdet * gelenYemek.getYemek_fiyat()));
         });
 
         binding.imageViewGeri.setOnClickListener(v -> {

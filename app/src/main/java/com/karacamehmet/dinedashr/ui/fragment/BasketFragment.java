@@ -104,12 +104,14 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
     public void onEmptyStateChanged(boolean isEmpty) {
         if (isEmpty) {
             binding.emptyStateTextView.setVisibility(View.VISIBLE);
+            binding.imageViewBosSepet.setVisibility(View.VISIBLE);
             binding.recyclerViewSepetYemekler.setVisibility(View.INVISIBLE);
             binding.textViewToplamFiyat.setVisibility(View.INVISIBLE);
             binding.textViewToplamFiyatText.setVisibility(View.INVISIBLE);
             binding.buttonSepetOnayla.setVisibility(View.INVISIBLE);
         } else {
             binding.emptyStateTextView.setVisibility(View.INVISIBLE);
+            binding.imageViewBosSepet.setVisibility(View.INVISIBLE);
             binding.recyclerViewSepetYemekler.setVisibility(View.VISIBLE);
             binding.textViewToplamFiyat.setVisibility(View.VISIBLE);
             binding.textViewToplamFiyatText.setVisibility(View.VISIBLE);
