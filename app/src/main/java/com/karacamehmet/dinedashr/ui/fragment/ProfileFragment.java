@@ -1,5 +1,7 @@
 package com.karacamehmet.dinedashr.ui.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.karacamehmet.dinedashr.R;
+import com.karacamehmet.dinedashr.data.entity.SepetYemekler;
 import com.karacamehmet.dinedashr.databinding.FragmentProfileBinding;
 import com.karacamehmet.dinedashr.ui.activity.LoginActivity;
 import com.karacamehmet.dinedashr.ui.activity.MainActivity;
@@ -41,11 +45,21 @@ public class ProfileFragment extends Fragment {
 
         binding.textViewKullaniciAdi.setText(kullanici_adi.getString("kullanici_adi", ""));
         binding.buttonCikis.setOnClickListener(v -> {
-            editor.clear();
-            editor.apply();
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            viewModel.sepetYemeklerListesi.observe(getViewLifecycleOwner(), List::clear);
-            startActivity(intent);
+            new MaterialAlertDialogBuilder(getContext())
+                    .setTitle("Oturumu Kapat")
+                    .setMessage("Oturumu kapatmak istiyor musunuz?")
+                    .setPositiveButton("Evet", ((dialog, which) -> {
+                        editor.clear();
+                        editor.apply();
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        viewModel.sepetYemeklerListesi.observe(getViewLifecycleOwner(), List::clear);
+                        startActivity(intent);
+                    }))
+                    .setNegativeButton("Hayır", ((dialog, which) -> {
+
+                    }))
+                    .show();
+
         });
 
 
