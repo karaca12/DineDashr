@@ -1,5 +1,7 @@
 package com.karacamehmet.dinedashr.ui.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -53,7 +55,16 @@ public class DetailFragment extends Fragment {
                         sharedPreferences.getString("kullanici_adi", ""));
                 Snackbar.make(v, "Sepete Eklendi", Snackbar.LENGTH_SHORT).show();
                 binding.textViewYemekAdet.setText("0");
-
+                binding.textViewDetailYemekToplamFiyat.setText("0₺");
+                binding.sepetEkleAnimasyon.setVisibility(View.VISIBLE);
+                binding.sepetEkleAnimasyon.playAnimation();
+                binding.sepetEkleAnimasyon.addAnimatorListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        binding.sepetEkleAnimasyon.setVisibility(View.INVISIBLE);
+                    }
+                });
             }
 
         });
@@ -62,7 +73,7 @@ public class DetailFragment extends Fragment {
             int yemekAdet = Integer.parseInt(binding.textViewYemekAdet.getText().toString()) + 1;
             binding.textViewYemekAdet.setText(String.valueOf(yemekAdet));
             binding.textViewDetailYemekToplamFiyat.setText(String.valueOf(
-                    yemekAdet*gelenYemek.getYemek_fiyat())+"₺");
+                    yemekAdet * gelenYemek.getYemek_fiyat()) + "₺");
         });
 
         binding.buttonEksilt.setOnClickListener(v -> {
@@ -72,7 +83,7 @@ public class DetailFragment extends Fragment {
             }
             binding.textViewYemekAdet.setText(String.valueOf(yemekAdet));
             binding.textViewDetailYemekToplamFiyat.setText(String.valueOf(
-                    yemekAdet*gelenYemek.getYemek_fiyat())+"₺");
+                    yemekAdet * gelenYemek.getYemek_fiyat()) + "₺");
         });
 
         binding.imageViewGeri.setOnClickListener(v -> {

@@ -1,5 +1,7 @@
 package com.karacamehmet.dinedashr.ui.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.karacamehmet.dinedashr.R;
 import com.karacamehmet.dinedashr.data.entity.SepetYemekler;
 import com.karacamehmet.dinedashr.databinding.FragmentBasketBinding;
@@ -38,7 +41,8 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
 
         viewModel.sepetYemeklerListesi.observe(getViewLifecycleOwner(), sepetYemeklers -> {
 
-            SepetRVAdapter adapter = new SepetRVAdapter(sepetYemeklers, requireContext(), viewModel, this);
+            SepetRVAdapter adapter = new SepetRVAdapter(
+                    sepetYemeklers, requireContext(), viewModel, this);
             binding.recyclerViewSepetYemekler.setAdapter(adapter);
             int toplamFiyat = 0;
             for (SepetYemekler sepetYemekler : sepetYemeklers) {
@@ -46,11 +50,32 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
             }
             binding.textViewToplamFiyat.setText("Toplam Fiyat: " + String.valueOf(toplamFiyat) + "₺");
             binding.buttonSepetOnayla.setOnClickListener(v -> {
-                for (SepetYemekler sepetYemek : sepetYemeklers) {
-                    viewModel.sepettenYemekSil(sepetYemek.getSepet_yemek_id(), sepetYemek.getKullanici_adi());
-                }
-                sepetYemeklers.clear();
-                onEmptyStateChanged(true);
+                new MaterialAlertDialogBuilder(getContext())
+                        .setTitle("Sepeti Onayla")
+                        .setMessage("Sepeti onaylamak istiyor musunuz?")
+                        .setPositiveButton("Evet", ((dialog, which) -> {
+                            for (SepetYemekler sepetYemek : sepetYemeklers) {
+                                viewModel.sepettenYemekSil(
+                                        sepetYemek.getSepet_yemek_id(), sepetYemek.getKullanici_adi());
+                            }
+                            sepetYemeklers.clear();
+                            onEmptyStateChanged(true);
+                            binding.sepetOnaylaAnimasyon.setVisibility(View.VISIBLE);
+                            binding.sepetOnaylaAnimasyon.playAnimation();
+                            binding.sepetOnaylaAnimasyon.addAnimatorListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                    binding.sepetOnaylaAnimasyon.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                        }))
+                        .setNegativeButton("Hayır", ((dialog, which) -> {
+
+                        }))
+                        .show();
+
+
             });
         });
 
