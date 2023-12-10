@@ -13,6 +13,7 @@
         android:layout_marginTop="80dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Sepet Boş"
+        android:textColor="@color/main_text_color"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
