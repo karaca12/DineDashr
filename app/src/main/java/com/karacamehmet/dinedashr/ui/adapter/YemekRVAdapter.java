@@ -26,6 +26,7 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
     private Context mContext;
     private List<Yemekler> filteredYemekler;
 
+
     public YemekRVAdapter(List<Yemekler> yemekler, Context mContext, HomeViewModel viewModel) {
         this.yemekler = yemekler;
         this.filteredYemekler = new ArrayList<>(yemekler);
@@ -56,7 +57,7 @@ public class YemekRVAdapter extends RecyclerView.Adapter<YemekRVAdapter.CardDesi
         String URL = "http://kasimadalan.pe.hu/yemekler/resimler/" + yemek.getYemek_resim_adi();
 
         designBinding.textViewDesignYemekAdi.setText(yemek.getYemek_adi());
-        designBinding.textViewDesignYemekFiyati.setText(String.valueOf(yemek.getYemek_fiyat()) + "₺");
+        designBinding.textViewDesignYemekFiyati.setText("₺"+String.valueOf(yemek.getYemek_fiyat()));
 
         Glide.with(mContext).load(URL).override(300).into(designBinding.imageViewDesignYemek);
 

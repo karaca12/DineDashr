@@ -10,7 +10,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        app:cardBackgroundColor="#E3E3E3"
         app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -26,20 +28,25 @@
                 android:id="@+id/textViewSepetYemekFiyat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:text="TextView"
-                app:layout_constraintEnd_toEndOf="@+id/textViewSepetYemekAdi"
-                app:layout_constraintStart_toEndOf="@+id/textViewSepetYemekAdet"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="₺6"
+                android:textColor="@color/price_text_color"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toBottomOf="@+id/textViewSepetYemekAdi" />
 
             <TextView
                 android:id="@+id/textViewSepetYemekAdi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="32dp"
-                android:text="TextView"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Fanta"
+                android:textColor="@color/main_text_color"
+                android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@+id/cardViewSepetYemekResim"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,11 +54,12 @@
                 android:id="@+id/textViewSepetYemekAdet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:text="TextView"
-                app:layout_constraintEnd_toStartOf="@+id/textViewSepetYemekFiyat"
-                app:layout_constraintStart_toStartOf="@+id/textViewSepetYemekAdi"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="5"
+                android:textColor="@color/main_text_color"
+                app:layout_constraintStart_toEndOf="@+id/cardViewSepetYemekResim"
                 app:layout_constraintTop_toBottomOf="@+id/textViewSepetYemekAdi" />
 
             <ImageView
@@ -71,7 +79,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#E3E3E3"
                 app:cardCornerRadius="8dp"
+                app:cardElevation="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -87,11 +97,40 @@
                 android:id="@+id/textViewSepetToplamFiyat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="TextView"
-                app:layout_constraintEnd_toEndOf="@+id/textViewSepetYemekFiyat"
-                app:layout_constraintStart_toStartOf="@+id/textViewSepetYemekAdet"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="₺30"
+                android:textColor="@color/price_text_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textViewSepetYemekFiyat" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Toplam:"
+                android:textColor="@color/main_text_color"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/cardViewSepetYemekResim"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSepetYemekAdet" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="adet"
+                android:textColor="@color/main_text_color"
+                app:layout_constraintStart_toEndOf="@+id/textViewSepetYemekAdet"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSepetYemekAdi" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

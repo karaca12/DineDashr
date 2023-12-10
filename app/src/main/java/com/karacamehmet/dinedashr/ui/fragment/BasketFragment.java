@@ -54,12 +54,13 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
                         .setTitle("Sepeti Onayla")
                         .setMessage("Sepeti onaylamak istiyor musunuz?")
                         .setPositiveButton("Evet", ((dialog, which) -> {
+                            binding.buttonSepetOnayla.setEnabled(false);
                             for (SepetYemekler sepetYemek : sepetYemeklers) {
                                 viewModel.sepettenYemekSil(
                                         sepetYemek.getSepet_yemek_id(), sepetYemek.getKullanici_adi());
                             }
                             sepetYemeklers.clear();
-                            onEmptyStateChanged(true);
+                            adapter.setClickable(false);
                             binding.sepetOnaylaAnimasyon.setVisibility(View.VISIBLE);
                             binding.sepetOnaylaAnimasyon.playAnimation();
                             binding.sepetOnaylaAnimasyon.addAnimatorListener(new AnimatorListenerAdapter() {
@@ -67,6 +68,9 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
                                 public void onAnimationEnd(Animator animation) {
                                     super.onAnimationEnd(animation);
                                     binding.sepetOnaylaAnimasyon.setVisibility(View.INVISIBLE);
+                                    onEmptyStateChanged(true);
+                                    binding.buttonSepetOnayla.setEnabled(true);
+                                    adapter.setClickable(true);
                                 }
                             });
                         }))

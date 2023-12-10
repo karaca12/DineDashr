@@ -53,7 +53,6 @@ public class DetailFragment extends Fragment {
                         gelenYemek.getYemek_fiyat(),
                         Integer.parseInt(binding.textViewYemekAdet.getText().toString()),
                         sharedPreferences.getString("kullanici_adi", ""));
-                Snackbar.make(v, "Sepete Eklendi", Snackbar.LENGTH_SHORT).show();
                 binding.textViewYemekAdet.setText("0");
                 binding.textViewDetailYemekToplamFiyat.setText("0₺");
                 binding.sepetEkleAnimasyon.setVisibility(View.VISIBLE);

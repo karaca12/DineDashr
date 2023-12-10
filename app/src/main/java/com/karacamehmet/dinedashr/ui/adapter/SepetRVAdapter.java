@@ -23,6 +23,7 @@ public class SepetRVAdapter extends RecyclerView.Adapter<SepetRVAdapter.CardDesi
     private BasketViewModel viewModel;
     private EmptyStateListener emptyStateListener;
     private SharedPreferences sharedPreferences;
+    private boolean isClickable = true;
 
     public interface EmptyStateListener {
         void onEmptyStateChanged(boolean isEmpty);
@@ -63,29 +64,34 @@ public class SepetRVAdapter extends RecyclerView.Adapter<SepetRVAdapter.CardDesi
 
         designBinding.textViewSepetYemekAdi.setText(sepetYemek.getYemek_adi());
         designBinding.textViewSepetYemekAdet.setText(
-                String.valueOf(sepetYemek.getYemek_siparis_adet()) + " adet");
-        designBinding.textViewSepetYemekFiyat.setText(
-                String.valueOf(sepetYemek.getYemek_fiyat()) + "₺");
-        designBinding.textViewSepetToplamFiyat.setText("Toplam: " +
-                String.valueOf(sepetYemek.getYemek_siparis_adet() * sepetYemek.getYemek_fiyat()) + "₺");
+                String.valueOf(sepetYemek.getYemek_siparis_adet()));
+        designBinding.textViewSepetYemekFiyat.setText("₺" +
+                String.valueOf(sepetYemek.getYemek_fiyat()));
+        designBinding.textViewSepetToplamFiyat.setText("₺" +
+                String.valueOf(sepetYemek.getYemek_siparis_adet() * sepetYemek.getYemek_fiyat()));
         Glide.with(mContext).load(URL).override(300).into(designBinding.imageViewSepetYemekResim);
 
         designBinding.imageViewThrash.setOnClickListener(v -> {
-            Snackbar.make(v, "Silinsin mi?", Snackbar.LENGTH_SHORT)
-                    .setAction("EVET", v1 -> {
-                        sharedPreferences = mContext.getSharedPreferences("kullanici_adi",
-                                Context.MODE_PRIVATE);
-                        viewModel.sepettenYemekSil(sepetYemek.getSepet_yemek_id(),
-                                sharedPreferences.getString("kullanici_adi", ""));
-                        sepetYemekler.remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, sepetYemekler.size());
-                        emptyStateListener.onEmptyStateChanged(sepetYemekler.isEmpty());
-                    })
-                    .show();
+            if (isClickable){
+                Snackbar.make(v, "Silinsin mi?", Snackbar.LENGTH_SHORT)
+                        .setAction("EVET", v1 -> {
+                            sharedPreferences = mContext.getSharedPreferences("kullanici_adi",
+                                    Context.MODE_PRIVATE);
+                            viewModel.sepettenYemekSil(sepetYemek.getSepet_yemek_id(),
+                                    sharedPreferences.getString("kullanici_adi", ""));
+                            sepetYemekler.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, sepetYemekler.size());
+                            emptyStateListener.onEmptyStateChanged(sepetYemekler.isEmpty());
+                        })
+                        .show();
+            }
         });
 
 
+    }
+    public void setClickable(boolean clickable) {
+        this.isClickable = clickable;
     }
 
     @Override
