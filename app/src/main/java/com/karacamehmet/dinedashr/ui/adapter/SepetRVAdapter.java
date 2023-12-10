@@ -83,6 +83,8 @@ public class SepetRVAdapter extends RecyclerView.Adapter<SepetRVAdapter.CardDesi
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position, sepetYemekler.size());
                             emptyStateListener.onEmptyStateChanged(sepetYemekler.isEmpty());
+                            Snackbar.make(v1,sepetYemek.getYemek_adi()+" sepetten silindi.",
+                                    Snackbar.LENGTH_SHORT).show();
                         })
                         .show();
             }

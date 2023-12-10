@@ -59,7 +59,6 @@ public class SepetYemeklerDaoRepository {
     @Nullable
     private SepetYemekler getSepetYemekByAd(String yemek_adi, String kullanici_adi) {
         sepettekiYemekleriYukle(kullanici_adi);
-        Log.e("deneme", String.valueOf(sepetYemeklerListesi.getValue()));
         List<SepetYemekler> sepetYemeklerList = sepetYemeklerListesi.getValue();
         if (sepetYemeklerList != null) {
             return sepetYemeklerList.stream()

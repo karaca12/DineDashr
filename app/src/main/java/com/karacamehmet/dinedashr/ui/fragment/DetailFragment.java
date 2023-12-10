@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +59,8 @@ public class DetailFragment extends Fragment {
                         sharedPreferences.getString("kullanici_adi", ""));
                 binding.textViewYemekAdet.setText("0");
                 binding.textViewDetailYemekToplamFiyat.setText("₺0");
+                Snackbar.make(v, gelenYemek.getYemek_adi() + " sepete eklendi.",
+                        Snackbar.LENGTH_SHORT).show();
                 binding.sepetEkleAnimasyon.setVisibility(View.VISIBLE);
                 binding.sepetEkleAnimasyon.playAnimation();
                 binding.sepetEkleAnimasyon.addAnimatorListener(new AnimatorListenerAdapter() {
@@ -68,6 +71,7 @@ public class DetailFragment extends Fragment {
                         binding.buttonArttir.setEnabled(true);
                         binding.buttonEksilt.setEnabled(true);
                         binding.buttonSepeteEkle.setEnabled(true);
+                        getActivity().onBackPressed();
                     }
                 });
             } else {

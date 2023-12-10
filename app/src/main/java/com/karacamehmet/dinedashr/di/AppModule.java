@@ -1,9 +1,6 @@
 package com.karacamehmet.dinedashr.di;
 
 
-import android.content.Context;
-
-import androidx.room.Room;
 
 import com.karacamehmet.dinedashr.data.repo.SepetYemeklerDaoRepository;
 import com.karacamehmet.dinedashr.data.repo.YemeklerDaoRepository;

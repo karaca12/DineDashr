@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.karacamehmet.dinedashr.R;
 import com.karacamehmet.dinedashr.data.entity.SepetYemekler;
 import com.karacamehmet.dinedashr.databinding.FragmentBasketBinding;
@@ -71,6 +72,8 @@ public class BasketFragment extends Fragment implements SepetRVAdapter.EmptyStat
                                     onEmptyStateChanged(true);
                                     binding.buttonSepetOnayla.setEnabled(true);
                                     adapter.setClickable(true);
+                                    Snackbar.make(v,"Siparişiniz alındı!",
+                                            Snackbar.LENGTH_SHORT).show();
                                 }
                             });
                         }))
