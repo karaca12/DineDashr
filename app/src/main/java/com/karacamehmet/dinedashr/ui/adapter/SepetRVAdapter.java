@@ -73,7 +73,7 @@ public class SepetRVAdapter extends RecyclerView.Adapter<SepetRVAdapter.CardDesi
 
         designBinding.imageViewThrash.setOnClickListener(v -> {
             if (isClickable){
-                Snackbar.make(v, "Silinsin mi?", Snackbar.LENGTH_SHORT)
+                Snackbar.make(v, sepetYemek.getYemek_adi()+" sepetten silinsin mi?", Snackbar.LENGTH_SHORT)
                         .setAction("EVET", v1 -> {
                             sharedPreferences = mContext.getSharedPreferences("kullanici_adi",
                                     Context.MODE_PRIVATE);
