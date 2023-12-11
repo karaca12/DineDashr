@@ -1,6 +1,6 @@
 # DineDashr
 
-DineDashr is the final project of the Android Developement with Java Bootcamp which is a food purchasing Android application written with Java.
+"DineDashr" is an Android food purchasing app, developed using Java and MVVM architecture. It integrates Retrofit for API communication, Glide for images, and Dagger-Hilt for dependencies. Features include LiveData for real-time updates, ViewBinding for optimized views, Navigation Component for smooth navigation, RecyclerView for dynamic content, and a SearchView for easy food item searches.
 
 
 
